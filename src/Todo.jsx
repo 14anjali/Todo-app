@@ -1,17 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Todo() {
   const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [editingText, setEditingText] = useState("");
+  const [tasks, setTasks] = useState(() => {
+    // Initialize tasks from localStorage
+    const saved = localStorage.getItem("tasks");
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  });
+  const [editing, setEditing] = useState({ id: null, text: "" });
+
+  // Save tasks to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = () => {
     if (task.trim() !== "") {
-      setTasks([...tasks, { id: Date.now(), text: task, completed: false }]);
+      setTasks([
+        ...tasks,
+        { id: Date.now(), text: task.trim(), completed: false },
+      ]);
       setTask("");
     }
   };
+
   const toggleComplete = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -23,19 +42,19 @@ function Todo() {
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
+
   const updateTask = (id) => {
     const taskToEdit = tasks.find((task) => task.id === id);
-    setEditingIndex(id);
-    setEditingText(taskToEdit.text);
+    if (taskToEdit) setEditing({ id: id, text: taskToEdit.text });
   };
-  const saveTask = (id) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === id ? { ...task, text: editingText } : task
-    );
 
-    setTasks(updatedTasks);
-    setEditingIndex(null);
-    setEditingText("");
+  const saveTask = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, text: editing.text } : task
+      )
+    );
+    setEditing({ id: null, text: "" });
   };
 
   return (
@@ -45,11 +64,13 @@ function Todo() {
           My To-Do List
         </h1>
 
+        {/* Input + Add button */}
         <div className="flex mb-6">
           <input
             type="text"
             value={task}
             onChange={(e) => setTask(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addTask()}
             placeholder="Write your task here..."
             className="flex-grow border border-gray-300 rounded-l-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
@@ -61,18 +82,21 @@ function Todo() {
           </button>
         </div>
 
+        {/* Tasks list */}
         <ul>
           {tasks.map((item) => (
             <li
               key={item.id}
               className="flex justify-between items-center bg-gray-50 border rounded-lg p-3 mb-3 shadow-sm hover:shadow-md transition"
             >
-              {editingIndex === item.id ? (
+              {editing.id === item.id ? (
                 <>
                   <input
                     type="text"
-                    value={editingText}
-                    onChange={(e) => setEditingText(e.target.value)}
+                    value={editing.text}
+                    onChange={(e) =>
+                      setEditing({ ...editing, text: e.target.value })
+                    }
                     className="flex-grow border border-gray-300 rounded p-2 mr-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
                   />
                   <div className="flex gap-2">
@@ -93,7 +117,7 @@ function Todo() {
               ) : (
                 <>
                   {/* Checkbox + task text */}
-                  <div className="flex items-center flex-grow gap-3 ">
+                  <div className="flex items-center flex-grow gap-3">
                     <input
                       type="checkbox"
                       checked={item.completed}
@@ -103,7 +127,7 @@ function Todo() {
                       className={`flex-grow font-medium ${
                         item.completed
                           ? "line-through text-gray-500"
-                          : "text-gray-700 "
+                          : "text-gray-700"
                       }`}
                     >
                       {item.text}
