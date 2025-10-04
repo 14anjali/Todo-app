@@ -29,9 +29,8 @@ All data is saved in **localStorage**, so your tasks persist even after refreshi
 ## 📂 Project Structure  
 
 src/
-│
-│ ├── Todo.jsx # Main Todo component
-│ ├── TodoFilter.jsx # Filter buttons (All, Active, Completed)
+│─ Todo.jsx # Main Todo component
+│── TodoFilter.jsx # Filter buttons (All, Active, Completed)
 │
 │── App.jsx # Renders the Todo component
 │── index.js # Entry point
