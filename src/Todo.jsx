@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TodoFilter from "./TodoFilter";
+import DraggableTask from "./DraggableTask";
 
 function Todo() {
   const [task, setTask] = useState("");
@@ -14,56 +15,78 @@ function Todo() {
     }
     return [];
   });
+
   const [editing, setEditing] = useState({ id: null, text: "" });
   const [filter, setFilter] = useState("all");
 
+  const [draggingId, setDraggingId] = useState(null);
+  const [hoverId, setHoverId] = useState(null);
+
+  // Save tasks to localStorage
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  // Add task
   const addTask = () => {
     if (task.trim() !== "") {
-      setTasks([
-        ...tasks,
-        { id: Date.now(), text: task.trim(), completed: false },
-      ]);
+      setTasks([...tasks, { id: Date.now(), text: task.trim(), completed: false }]);
       setTask("");
     }
   };
 
+  // Toggle complete
   const toggleComplete = (id) => {
     setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
+      tasks.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
     );
   };
 
+  // Delete task
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(tasks.filter((t) => t.id !== id));
   };
 
+  // Start editing task
   const updateTask = (id) => {
-    const taskToEdit = tasks.find((task) => task.id === id);
+    const taskToEdit = tasks.find((t) => t.id === id);
     if (taskToEdit) setEditing({ id: id, text: taskToEdit.text });
   };
 
+  // Save edited task
   const saveTask = (id) => {
     setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, text: editing.text } : task
-      )
+      tasks.map((t) => (t.id === id ? { ...t, text: editing.text } : t))
     );
     setEditing({ id: null, text: "" });
   };
 
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "active") return !task.completed;
-    if (filter === "completed") return task.completed;
+  // Filtered tasks
+  const filteredTasks = tasks.filter((t) => {
+    if (filter === "active") return !t.completed;
+    if (filter === "completed") return t.completed;
     return true;
   });
 
-  return (
+  // Drag & Drop handlers
+  const onDrop = (e, id) => {
+    e.preventDefault();
+    const dragId = draggingId || e.dataTransfer.getData("text/plain");
+    if (!dragId || dragId === id) return;
+
+    const newTasks = [...tasks];
+    const dragIndex = newTasks.findIndex((t) => t.id === Number(dragId));
+    const dropIndex = newTasks.findIndex((t) => t.id === id);
+
+    const [draggedTask] = newTasks.splice(dragIndex, 1);
+    newTasks.splice(dropIndex, 0, draggedTask);
+
+    setTasks(newTasks);
+    setDraggingId(null);
+    setHoverId(null);
+  };
+
+    return (
     <div className="min-h-screen bg-gray-100 flex">
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-lg p-6 hidden md:block">
@@ -72,8 +95,7 @@ function Todo() {
         </h1>
         <div className="space-y-4 text-gray-600">
           <p>
-            Total Tasks:{" "}
-            <span className="font-semibold">{tasks.length}</span>
+            Total Tasks: <span className="font-semibold">{tasks.length}</span>
           </p>
           <p>
             Completed:{" "}
@@ -122,88 +144,28 @@ function Todo() {
               </p>
             )}
 
-            {filteredTasks.map((item) => (
-              <li
-                key={item.id}
-                className="flex justify-between items-center bg-white border rounded-lg p-4 shadow hover:shadow-md transition"
-              >
-                {editing.id === item.id ? (
-                  <>
-                    <input
-                      type="text"
-                      value={editing.text}
-                      onChange={(e) =>
-                        setEditing({ ...editing, text: e.target.value })
-                      }
-                      className="flex-grow border border-gray-300 rounded p-2 mr-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => saveTask(item.id)}
-                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition"
-                      >
-                        Save
-                      </button>
-                      <button
-                        onClick={() => deleteTask(item.id)}
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex items-center flex-grow gap-3">
-                      <input
-                        type="checkbox"
-                        checked={item.completed}
-                        onChange={() => toggleComplete(item.id)}
-                        className="h-5 w-5 text-purple-600 focus:ring-purple-500"
-                      />
-                      <span
-                        className={`flex-grow font-medium ${
-                          item.completed
-                            ? "line-through text-gray-400"
-                            : "text-gray-700"
-                        }`}
-                      >
-                        {item.text}
-                      </span>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => updateTask(item.id)}
-                        disabled={item.completed}
-                        className={`px-3 py-1 rounded transition ${
-                          item.completed
-                            ? "bg-blue-300 cursor-not-allowed"
-                            : "bg-blue-500 hover:bg-blue-600 text-white"
-                        }`}
-                      >
-                        ✏️
-                      </button>
-                      <button
-                        onClick={() => deleteTask(item.id)}
-                        disabled={item.completed}
-                        className={`px-3 py-1 rounded transition ${
-                          item.completed
-                            ? "bg-red-300 cursor-not-allowed"
-                            : "bg-red-500 hover:bg-red-600 text-white"
-                        }`}
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </>
-                )}
-              </li>
+            {filteredTasks.map((task) => (
+              <DraggableTask
+                key={task.id}
+                task={task}
+                editing={editing}
+                setEditing={setEditing}
+                toggleComplete={toggleComplete}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+                saveTask={saveTask}
+                draggingId={draggingId}
+                hoverId={hoverId}
+                setDraggingId={setDraggingId}
+                setHoverId={setHoverId}
+                onDrop={onDrop}
+              />
             ))}
           </ul>
         </div>
       </main>
     </div>
+
   );
 }
 
