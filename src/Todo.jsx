@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TodoFilter from "./TodoFilter";
 import DraggableTask from "./DraggableTask";
+import ProgressBar from "./ProgressCircle";
 
 function Todo() {
   const [task, setTask] = useState("");
@@ -110,6 +111,12 @@ function Todo() {
             </span>
           </p>
         </div>
+     <ProgressBar
+  completed={tasks.filter(t => t.completed).length}
+  total={tasks.length}
+  size={130}
+  strokeWidth={12}
+/>
       </aside>
 
       {/* Main Content */}
