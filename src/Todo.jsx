@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TodoFilter from "./TodoFilter";
 import DraggableTask from "./DraggableTask";
 import ProgressBar from "./ProgressCircle";
+import ClearDropdown from "./ClearDropdown";
 
 function Todo() {
   const [task, setTask] = useState("");
@@ -88,90 +89,87 @@ function Todo() {
   };
 
     return (
-    <div className="min-h-screen bg-gray-100 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg p-6 hidden md:block">
-        <h1 className="text-2xl font-bold text-purple-700 mb-8">
-          Task Manager
-        </h1>
-        <div className="space-y-4 text-gray-600">
-          <p>
-            Total Tasks: <span className="font-semibold">{tasks.length}</span>
-          </p>
-          <p>
-            Completed:{" "}
-            <span className="font-semibold">
-              {tasks.filter((t) => t.completed).length}
-            </span>
-          </p>
-          <p>
-            Pending:{" "}
-            <span className="font-semibold">
-              {tasks.filter((t) => !t.completed).length}
-            </span>
-          </p>
-        </div>
-     <ProgressBar
-  completed={tasks.filter(t => t.completed).length}
-  total={tasks.length}
-  size={130}
-  strokeWidth={12}
-/>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-6">
-        <div className="max-w-2xl mx-auto">
-          {/* Input */}
-          <div className="flex mb-6 shadow-sm">
-            <input
-              type="text"
-              value={task}
-              onChange={(e) => setTask(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addTask()}
-              placeholder="Add a new task..."
-              className="flex-grow border border-gray-300 rounded-l-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-400"
-            />
-            <button
-              onClick={addTask}
-              className="bg-purple-600 text-white px-6 rounded-r-lg hover:bg-purple-700 transition-colors font-semibold"
-            >
-              Add
-            </button>
-          </div>
-
-          {/* Filter */}
-          <TodoFilter currentFilter={filter} onChange={setFilter} />
-
-          {/* Task List */}
-          <ul className="mt-6 space-y-3">
-            {filteredTasks.length === 0 && (
-              <p className="text-center text-gray-500">
-                No tasks in this filter
-              </p>
-            )}
-
-            {filteredTasks.map((task) => (
-              <DraggableTask
-                key={task.id}
-                task={task}
-                editing={editing}
-                setEditing={setEditing}
-                toggleComplete={toggleComplete}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
-                saveTask={saveTask}
-                draggingId={draggingId}
-                hoverId={hoverId}
-                setDraggingId={setDraggingId}
-                setHoverId={setHoverId}
-                onDrop={onDrop}
-              />
-            ))}
-          </ul>
-        </div>
-      </main>
+ <div className="min-h-screen bg-gray-50 flex">
+  {/* Sidebar */}
+  <aside className="w-64 bg-white shadow-lg p-6 hidden md:block rounded-xl">
+    <h1 className="text-3xl font-bold text-purple-700 mb-8">Task Manager</h1>
+    <div className="space-y-4 text-gray-700">
+      <p>
+        Total Tasks: <span className="font-semibold text-purple-600">{tasks.length}</span>
+      </p>
+      <p>
+        Completed: <span className="font-semibold text-green-600">{tasks.filter((t) => t.completed).length}</span>
+      </p>
+      <p>
+        Pending: <span className="font-semibold text-yellow-500">{tasks.filter((t) => !t.completed).length}</span>
+      </p>
     </div>
+
+    <div className="mt-6">
+      <ProgressBar
+        completed={tasks.filter(t => t.completed).length}
+        total={tasks.length}
+        size={130}
+        strokeWidth={12}
+      />
+    </div>
+  </aside>
+
+  {/* Main Content */}
+  <main className="flex-1 p-6">
+    <div className="max-w-2xl mx-auto">
+      {/* Input + Buttons */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        <input
+          type="text"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && addTask()}
+          placeholder="Add a new task..."
+          className="flex-grow border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-sm transition"
+        />
+        <button
+          onClick={addTask}
+          className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold flex items-center justify-center"
+        >
+          Add
+        </button>
+        <ClearDropdown tasks={tasks} setTasks={setTasks} />
+      </div>
+
+      {/* Filter */}
+      <TodoFilter currentFilter={filter} onChange={setFilter} />
+
+      {/* Task List */}
+      <ul className="mt-6 space-y-3">
+        {filteredTasks.length === 0 && (
+          <p className="text-center text-gray-500 text-lg font-medium">
+            No tasks in this filter
+          </p>
+        )}
+
+        {filteredTasks.map((task) => (
+          <DraggableTask
+            key={task.id}
+            task={task}
+            editing={editing}
+            setEditing={setEditing}
+            toggleComplete={toggleComplete}
+            deleteTask={deleteTask}
+            updateTask={updateTask}
+            saveTask={saveTask}
+            draggingId={draggingId}
+            hoverId={hoverId}
+            setDraggingId={setDraggingId}
+            setHoverId={setHoverId}
+            onDrop={onDrop}
+          />
+        ))}
+      </ul>
+    </div>
+  </main>
+</div>
+
 
   );
 }
