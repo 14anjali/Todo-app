@@ -20,7 +20,19 @@ useEffect(()=>{
         document.documentElement.classList.remove('dark')
     }
 },[darkMode])
-
+  // ====== PWA Service Worker Registration ======
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+          .then(() => console.log('✅ Service Worker Registered'))
+          .catch((err) =>
+            console.log('❌ Service Worker registration failed:', err)
+          )
+      })
+    }
+  }, [])
   return(
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
       <header className="p-4 flex justify-between items-center">
