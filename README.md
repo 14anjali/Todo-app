@@ -1,100 +1,78 @@
-# 📝 Todo App  
 
-A simple yet powerful **Todo List application** built with **React** and styled with **Tailwind CSS**.  
-It allows users to manage their tasks efficiently with add, edit, delete, mark complete, and filter features.  
-All data is saved in **localStorage**, so your tasks persist even after refreshing the page.  
+# Todo App
 
----
-
-## 🚀 Features  
-
-- ✅ Add new tasks with a unique ID  
-- ✅ Edit existing tasks  
-- ✅ Delete tasks individually  
-- ✅ Mark tasks as **completed** or **active**  
-- ✅ Filter tasks by **All / Active / Completed**  
-- ✅ Persistent data using **localStorage**  
-- ✅ Responsive and modern UI with **Tailwind CSS**  
-
----
-
-## ⚙️ Tech Stack  
-
-- **React.js** – Component-based UI  
-- **Tailwind CSS** – Styling  
-- **LocalStorage** – Data persistence  
-
----
-
-## 📂 Project Structure  
-
-src/
-│─ Todo.jsx # Main Todo component
-│── TodoFilter.jsx # Filter buttons (All, Active, Completed)
-│
-│── App.jsx # Renders the Todo component
-│── index.js # Entry point
+I built a responsive To-Do App that helps users efficiently organize and track daily tasks. It allows users to add, edit, delete, and mark tasks as completed with an intuitive and clean user interface. The app also includes features like task filtering (All, Active, Completed) and local storage integration to persist data even after refreshing the page.
 
 
----
 
-## 🛠️ Functionality Breakdown  
+## Features
 
-### State Management  
-- **task** → Input field value for new task.  
-- **tasks** → List of all tasks (from localStorage or empty).  
-- **editing** → Keeps track of task being edited.  
-- **filter** → Active filter state.  
+✅ Add New Tasks – Quickly add tasks to stay organized.
 
-### Side Effects  
-- `useEffect` → Saves tasks to **localStorage** whenever they change.  
+✏️ Edit Tasks – Update task names anytime.
 
-### Core Functions  
-- **addTask** → Adds a new task.  
-- **toggleComplete** → Marks task as complete/incomplete.  
-- **deleteTask** → Deletes a task.  
-- **updateTask** → Updates an existing task.  
-- **filterTasks** → Filters tasks (All, Active, Completed).  
+❌ Delete Tasks – Remove completed or unwanted tasks easily.
 
----
+☑️ Mark as Completed – Toggle tasks between completed and active states.
 
-## 🎨 UI Overview  
+🔍 Filter Tasks – View All, Active, or Completed tasks.
 
-- Input box + **Add** button to create tasks.  
-- Task list with:  
-  - Checkbox → mark as completed  
-  - Edit button ✏️ → update task  
-  - Delete button ❌ → remove task  
-- **Filter buttons**: All | Active | Completed  
-- Empty state message → shown when no tasks exist.  
+💾 Persistent Storage – Tasks are saved in Local Storage, so data remains even after a page refresh.
 
----
+📱 Responsive Design – Works smoothly across mobile, tablet, and desktop devices.
 
-## 🚀 Getting Started  
+⚡ Optimized Performance – Efficient state updates for a smooth user experience.
 
-1. Clone the repo  
+🎨 Clean UI – Minimal, intuitive, and distraction-free interface.
+
+## Documentation
+
+🧩 Overview
+
+The To-Do App helps users manage daily tasks by allowing them to add, edit, delete, and mark tasks as completed. It’s designed with a clean interface and responsive layout for a smooth user experience on all devices.
+
+⚙️ How It Works
+
+1. Add Task – Type a task in the input box and click the Add button to add it to the list.
+
+2. Mark Complete – Click the checkbox beside a task to mark it as completed.
+
+3. Edit Task – Click the Edit icon (✏️) to update an existing task.
+
+4. Delete Task – Remove any task by clicking the Delete icon (🗑️).
+
+5. Filter Tasks – Toggle between All, Active, and Completed filters.
+
+6. Persistent Data – Tasks are saved in Local Storage, so they remain after reloading the page.
+
+
+## 🔗 Links
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anjali-37571b2b8/)
+
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/anjali35088)
+
+
+## Installation
+
+Install the project with npm
+
+  git clone https://github.com/14anjali/Todo-app.git
+
 ```bash
-git clone https://github.com/your-username/todo-app.git
-cd todo-app
+  cd todo-app
+  npm install
+```
 
-Install dependencies
-npm install
+```bash
+npm run dev
+```
+## Demo
 
-
-
-📸 Demo Screenshot (optional)
-
-Add a screenshot of your UI here once deployed
-
-🌐 Deployment
-
-You can deploy this project on Netlify, Vercel, or GitHub Pages.
+Insert gif or link to demo
 
 
+## 🛠 Skills
 
+HTML5 ,CSS (Tailwind) , React , jsx ,responsive Design
 
-📜 License
-
-This project is licensed under the MIT License.
-
-Do you want me to also **add badges (shields.io)** like _React | Tailwind | MIT License_ at the top for a more professional look?
