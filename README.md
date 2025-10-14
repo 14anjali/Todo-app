@@ -1,51 +1,28 @@
 
 # Todo App
 
-I built a responsive To-Do App that helps users efficiently organize and track daily tasks. It allows users to add, edit, delete, and mark tasks as completed with an intuitive and clean user interface. The app also includes features like task filtering (All, Active, Completed) and local storage integration to persist data even after refreshing the page.
+A modern, responsive Todo application built with React and Tailwind CSS.
+Track your daily tasks, mark them as complete, and visualize your progress with an interactive progress circle. Supports dark mode and drag & drop reordering.
 
 
 
 ## Features
 
-✅ Add New Tasks – Quickly add tasks to stay organized.
+✅ Add, edit, and delete tasks
 
-✏️ Edit Tasks – Update task names anytime.
+✅ Mark tasks as completed
 
-❌ Delete Tasks – Remove completed or unwanted tasks easily.
+✅ Filter tasks (All / Active / Completed)
 
-☑️ Mark as Completed – Toggle tasks between completed and active states.
+✅ Drag & drop tasks to reorder
 
-🔍 Filter Tasks – View All, Active, or Completed tasks.
+✅ Progress visualization with an animated progress circle
 
-💾 Persistent Storage – Tasks are saved in Local Storage, so data remains even after a page refresh.
+✅ Persistent tasks using LocalStorage
 
-📱 Responsive Design – Works smoothly across mobile, tablet, and desktop devices.
+✅ Dark mode support
 
-⚡ Optimized Performance – Efficient state updates for a smooth user experience.
-
-🎨 Clean UI – Minimal, intuitive, and distraction-free interface.
-
-## Documentation
-
-🧩 Overview
-
-The To-Do App helps users manage daily tasks by allowing them to add, edit, delete, and mark tasks as completed. It’s designed with a clean interface and responsive layout for a smooth user experience on all devices.
-
-⚙️ How It Works
-
-1. Add Task – Type a task in the input box and click the Add button to add it to the list.
-
-2. Mark Complete – Click the checkbox beside a task to mark it as completed.
-
-3. Edit Task – Click the Edit icon (✏️) to update an existing task.
-
-4. Delete Task – Remove any task by clicking the Delete icon (🗑️).
-
-5. Filter Tasks – Toggle between All, Active, and Completed filters.
-
-6. Persistent Data – Tasks are saved in Local Storage, so they remain after reloading the page.
-
-
+✅ Responsive design for mobile, tablet, and desktop
 ## 🔗 Links
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anjali-37571b2b8/)
@@ -55,24 +32,82 @@ The To-Do App helps users manage daily tasks by allowing them to add, edit, dele
 
 ## Installation
 
-Install the project with npm
+1. Clone the repository:
 
   git clone https://github.com/14anjali/Todo-app.git
 
+2. Navigate into the project directory:
 ```bash
   cd todo-app
+```
+3. Install dependencies:
+```bash
   npm install
 ```
-
+4. Start the development server:
 ```bash
 npm run dev
 ```
 ## Demo
 
-Insert gif or link to demo
+https://02todo-app.netlify.app/
 
 
 ## 🛠 Skills
 
 HTML5 ,CSS (Tailwind) , React , jsx ,responsive Design
+
+## Tech Stack
+
+Frontend: React, Tailwind CSS
+
+State Management: React Hooks (useState, useEffect)
+
+Storage: Browser LocalStorage
+
+Animations: Tailwind transitions and CSS glow effects
+
+
+## Documentation
+Usage
+
+1. Add a task: Type in the input box and press Enter or click the Add button.
+
+2. Edit a task: Click the edit icon, modify the text, and save.
+
+3. Delete a task: Click the trash icon next to the task.
+
+4. Toggle completion: Click the checkbox to mark a task as done/undone.
+
+5. Filter tasks: Use the filter buttons (All, Active, Completed).
+
+6. Reorder tasks: Drag and drop tasks to change their order.
+
+7. Track progress: The progress circle shows completed tasks as a percentage.
+
+
+## Future Improvements
+
+Add task deadlines and priority labels
+
+Add animations for task addition/removal
+
+Improve mobile sidebar toggle for better UX
+
+Add sorting options for tasks
+
+
+## License
+
+This project is open-source and available under the MIT License.
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at 1424anjali@gmail.com
+
+
+## Screenshots
+
+![App Screenshot](./icons/Screenshot%202025-10-14%20164917.png)
 
