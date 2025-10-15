@@ -85,6 +85,9 @@ Usage
 
 7. Track progress: The progress circle shows completed tasks as a percentage.
 
+## Screenshots
+
+![App Screenshot](./icons/Screenshot%202025-10-14%20164917.png)
 
 ## Future Improvements
 
@@ -96,7 +99,8 @@ Improve mobile sidebar toggle for better UX
 
 Add sorting options for tasks
 
-
+## Watch the Todo App in Action
+![App Screenshot](./icons/todo%20-%20Google%20Chrome%202025-10-15%2023-04-28.mp4)
 ## License
 
 This project is open-source and available under the MIT License.
@@ -107,7 +111,5 @@ This project is open-source and available under the MIT License.
 If you have any feedback, please reach out to us at 1424anjali@gmail.com
 
 
-## Screenshots
 
-![App Screenshot](./icons/Screenshot%202025-10-14%20164917.png)
 
