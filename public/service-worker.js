@@ -5,7 +5,6 @@ const CACHE_NAME = "todo-cache-v1";
 const urlsToCache = [
   "/",                // root
   "/index.html",      // main HTML
-  "/src/main.jsx"   // entry JS 
 
 ];
 
